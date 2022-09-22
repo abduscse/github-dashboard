@@ -3,12 +3,12 @@
         <span>Logo &nbsp;</span>
         <span>My Github</span>
         <span class="example-spacer"></span>
-        <mat-icon>favorite</mat-icon>
+        <mat-icon [title]="navTitle" (click)="navigate()">{{navIcon}}</mat-icon>
     </mat-toolbar>
 </div>
-
+<div class="breadCrumb">
+    <span>DASHBOARD | {{currentPage| uppercase}}</span>
+</div>
 <div>
-    <div>
-        <span>Dashboard | Search</span>
-    </div>
+    <router-outlet></router-outlet>
 </div>
