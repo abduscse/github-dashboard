@@ -1,1 +1,8 @@
-<p>search works!</p>
+<div class="row d-flex justify-content-center">
+    <mat-form-field class="col-8 search-field" appearance="outline">
+        <input matInput type="text" [(ngModel)]="enteredText" (keyup.enter)="search()">
+        <mat-icon matSuffix (click)="search()">search</mat-icon>
+    </mat-form-field>
+</div>
+
+{{users|json}}

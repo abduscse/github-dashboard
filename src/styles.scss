@@ -6,10 +6,12 @@ body {
 }
 
 body {
+    background-color: rgb(237, 240, 255);
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-body {
-    background-color: rgb(237, 240, 255);
+mat-icon {
+    margin: 5px;
+    cursor: pointer;
 }
