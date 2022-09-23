@@ -1,0 +1,3 @@
+export const CONSTANTS = {
+    ACCESS_TOKEN: 'ghp_3QMmBw2OQF1rGJNC3gCg8KfKCPCMdz2aHR2'
+}
