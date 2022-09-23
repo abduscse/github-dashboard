@@ -10,12 +10,10 @@ export class AppService {
   isLoading = new BehaviorSubject(false);
   constructor(private http: HttpClient) { }
 
-  getUsers(enteredText: string): Observable<any> {
-    return this.http.get('search/users?q=' + enteredText) as Observable<any>;
-    // return this.http.get('https://api.github.com/search/users?q=abdus', {
-    //   headers: {
-    //     Authorization: 'Bearer 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'
-    //   }
-    // }) as Observable<any>;
+  getUsers(enteredText: string, page: number, per_page: number): Observable<any> {
+    return this.http.get(
+      'search/users?q=' + enteredText +
+      '&page=' + page + '&per_page=' + per_page
+    ) as Observable<any>;
   }
 }
