@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LocalStorageService } from '../local-storage.service';
 
 @Component({
   selector: 'app-history',
@@ -6,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./history.component.scss']
 })
 export class HistoryComponent implements OnInit {
-
-  constructor() { }
+  searchHistory = this.localStorage.get('search_history');
+  constructor(private localStorage: LocalStorageService) { }
 
   ngOnInit(): void {
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AppService } from '../app.service';
+import { LocalStorageService } from '../local-storage.service';
 import { SnackBarComponent } from '../shared/snack-bar/snack-bar.component';
 import { isEmpty } from '../shared/utils';
 
@@ -10,7 +11,8 @@ import { isEmpty } from '../shared/utils';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  constructor(private appService: AppService, private snackBar: MatSnackBar) { }
+  constructor(private appService: AppService, private snackBar: MatSnackBar,
+    private localStorage: LocalStorageService) { }
   enteredText: string = '';
   page = 1;
   per_page = 30;
@@ -26,20 +28,35 @@ export class SearchComponent implements OnInit {
     this.page = 1;
     this.users = [];
     this.searchNotPerformed = true;
-    this.search();
+    this.search(true);
   }
-  search() {
+  search(newSearch = false) {
     if (!isEmpty(this.enteredText)) {
       this.appService.getUsers(this.enteredText, this.page, this.per_page).subscribe((res) => {
         this.searchNotPerformed = false;
         this.userCount = res.total_count;
         this.users.push(...res.items);
+        if (newSearch) {
+
+          this.localStorage.addSearch({
+            keywords: this.enteredText,
+            userCount: this.userCount,
+            status: 'Success'
+          });
+        }
       }, error => {
         this.searchNotPerformed = false;
         console.log(error);
         this.snackBar.openFromComponent(SnackBarComponent, {
           data: 'User Search Failed!'
         });
+        if (newSearch) {
+          this.localStorage.addSearch({
+            keywords: this.enteredText,
+            userCount: null,
+            status: 'Failed'
+          });
+        }
       });
     } else {
       this.snackBar.openFromComponent(SnackBarComponent, {
