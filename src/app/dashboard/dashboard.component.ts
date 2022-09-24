@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(e => {
       const event = e as NavigationEnd;
       this.currentPage = event.urlAfterRedirects.split('/')[1];
+      this.navIcon = this.currentPage === 'search' ? 'manage_history' : 'search';
     });
   }
 

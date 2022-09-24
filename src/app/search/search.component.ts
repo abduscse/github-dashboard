@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { AppService } from '../app.service';
 import { LocalStorageService } from '../local-storage.service';
 import { SnackBarComponent } from '../shared/snack-bar/snack-bar.component';
@@ -11,8 +12,14 @@ import { isEmpty } from '../shared/utils';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  constructor(private appService: AppService, private snackBar: MatSnackBar,
-    private localStorage: LocalStorageService) { }
+  constructor(private appService: AppService, private snackBar: MatSnackBar, private router: Router,
+    private localStorage: LocalStorageService) {
+    const state = this.router.getCurrentNavigation()?.extras.state as { keywords: string };
+    if (state?.keywords) {
+      this.enteredText = state.keywords;
+      this.onNewSearch();
+    }
+  }
   enteredText: string = '';
   page = 1;
   per_page = 30;
@@ -41,7 +48,7 @@ export class SearchComponent implements OnInit {
           this.localStorage.addSearch({
             keywords: this.enteredText,
             userCount: this.userCount,
-            status: 'Success'
+            status: this.userCount ? 'Success' : 'Failed'
           });
         }
       }, error => {

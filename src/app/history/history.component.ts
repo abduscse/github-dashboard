@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { LocalStorageService } from '../local-storage.service';
 
 @Component({
@@ -6,11 +7,17 @@ import { LocalStorageService } from '../local-storage.service';
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.scss']
 })
-export class HistoryComponent implements OnInit {
+export class HistoryComponent {
   searchHistory = this.localStorage.get('search_history');
-  constructor(private localStorage: LocalStorageService) { }
+  constructor(private localStorage: LocalStorageService, private router: Router) { }
 
-  ngOnInit(): void {
+  onDeleteItem(id: number) {
+    this.localStorage.clearSearchItem(id);
+    this.searchHistory = this.localStorage.get('search_history');
   }
-
+  onSearchAgain(keywords: string) {
+    this.router.navigate(['/search'], {
+      state: { keywords }
+    });
+  }
 }

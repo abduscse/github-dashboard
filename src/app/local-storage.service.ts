@@ -45,7 +45,11 @@ export class LocalStorageService {
     const search_history = this.get('search_history');
     obj.id = Math.ceil(Math.random() * 100000);
     obj.timestamp = new Date();
-    search_history.push(obj);
+    search_history.unshift(obj);
+    this.set('search_history', search_history);
+  }
+  clearSearchItem(id: number) {
+    const search_history = this.get('search_history').filter((item: any) => item.id !== id);
     this.set('search_history', search_history);
   }
 }
