@@ -1,0 +1,42 @@
+.search-field {
+
+    ::ng-deep .mat-form-field-outline {
+        // border: 3px solid #3f51b5;
+        background-color: #ffffff;
+        border-radius: 5px;
+    }
+}
+
+.users-list {
+    margin: 5px;
+    max-height: 65vh;
+    overflow: auto;
+
+    .user-card {
+        max-width: 400px;
+        margin-bottom: 8px;
+        cursor: pointer;
+    }
+}
+
+.searchCount {
+    margin-right: 5px;
+
+    .searchCountText {
+        font-size: 15px;
+        font-weight: 400;
+        color: darkgray;
+    }
+}
+
+.searchNotPerformed,
+.noResultsFound {
+    color: #3f51b5;
+    cursor: auto;
+    font-size: 15px;
+    font-weight: 500;
+
+    .icon {
+        transform: scale(8);
+    }
+}

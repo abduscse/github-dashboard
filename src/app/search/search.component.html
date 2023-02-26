@@ -1,0 +1,40 @@
+<div class="row searchNotPerformed" *ngIf="searchNotPerformed">
+    <div class="col-12 pt-5 d-flex justify-content-center">
+        <mat-icon class="icon">edit_note</mat-icon>
+    </div>
+    <div class="col-12 mt-5 mb-5 pt-5 d-flex justify-content-center">
+        <span> Please enter keywords for your search. </span>
+    </div>
+</div>
+<div class="row d-flex justify-content-center">
+    <mat-form-field class="col-8 search-field" appearance="outline">
+        <input matInput type="text" id="firstName" name="firstName" placeholder="Type here" [(ngModel)]="enteredText"
+            (keyup.enter)="onNewSearch()">
+        <mat-icon matSuffix (click)="onNewSearch()">search</mat-icon>
+    </mat-form-field>
+</div>
+<div *ngIf="userCount" class="row searchCount">
+    <div class="col-12 d-flex justify-content-end">
+        <span class="searchCountText"> {{userCount}} Users found.</span>
+    </div>
+</div>
+<div *ngIf="!searchNotPerformed" class="row users-list" (scroll)="onScroll($event)">
+    <div class="col-3" *ngFor="let user of users">
+        <mat-card class="user-card" (click)="onCardClick(user)">
+            <mat-card-title-group>
+                <mat-card-title>{{user.login}}</mat-card-title>
+                <mat-card-subtitle>User</mat-card-subtitle>
+                <img mat-card-sm-image [src]="user.avatar_url">
+            </mat-card-title-group>
+        </mat-card>
+    </div>
+</div>
+
+<div class="row noResultsFound" *ngIf="!searchNotPerformed && !users.length">
+    <div class="col-12 mt-5 pt-5 d-flex justify-content-center">
+        <mat-icon class="icon">group_off</mat-icon>
+    </div>
+    <div class="col-12 mt-5 mb-5 pt-5 d-flex justify-content-center">
+        <span> No users found for these keywords. </span>
+    </div>
+</div>

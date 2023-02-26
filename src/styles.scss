@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    background-color: rgb(237, 240, 255);
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+mat-icon {
+    margin: 5px;
+    cursor: pointer;
+}
+
+.snackBarPanel {
+    color: white;
+    background-color: #3f51b5;
+}

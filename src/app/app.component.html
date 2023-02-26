@@ -1,0 +1,7 @@
+<div [ngClass]="{'spinner-backdrop': loading}">
+    <app-dashboard></app-dashboard>
+</div>
+
+<div *ngIf="loading" class="spinner">
+    <mat-spinner></mat-spinner>
+</div>

@@ -1,0 +1,44 @@
+<div *ngIf="searchHistory.length" class="row item-list d-flex justify-content-center">
+    <div class="col-8" *ngFor="let searchItem of searchHistory">
+        <mat-card class="item-card">
+            <mat-card-header class="row">
+                <div class="col-1 d-flex align-items-center justify-content-center">
+                    <mat-icon mat-card-avatar class="icon d-flex align-items-center justify-content-center">
+                        <span [ngClass]="searchItem.status.toLowerCase()">
+                            {{searchItem.status === 'Success' ? 'check_circle':'cancel'}}
+                        </span>
+                    </mat-icon>
+                </div>
+                <div class="col-9">
+                    <mat-card-subtitle>{{searchItem.timestamp | date}} </mat-card-subtitle>
+                    <mat-card-title>{{searchItem.keywords}}</mat-card-title>
+                    <mat-card-subtitle *ngIf="searchItem.userCount">{{searchItem.userCount}} Users found!
+                    </mat-card-subtitle>
+                    <mat-card-subtitle *ngIf="!searchItem.userCount">Search Failed </mat-card-subtitle>
+                </div>
+                <div class="col-1 d-flex align-items-center justify-content-center">
+                    <mat-icon mat-card-avatar title="Clear" (click)="onDeleteItem(searchItem.id)"
+                        class="icon d-flex align-items-center justify-content-center">
+                        <span class="delete"> delete_sweep </span>
+                    </mat-icon>
+                </div>
+                <div class="col-1 d-flex align-items-center justify-content-center">
+                    <mat-icon mat-card-avatar title="Search Again" (click)="onSearchAgain(searchItem.keywords)"
+                        class="icon d-flex align-items-center justify-content-center">
+                        <span class="search"> subdirectory_arrow_right </span>
+                    </mat-icon>
+                </div>
+            </mat-card-header>
+        </mat-card>
+    </div>
+</div>
+<div class="row pt-5 mt-5 noHistory" *ngIf="!searchHistory.length">
+    <div class="col-12 pt-5 mt-5 mb-5 d-flex justify-content-center">
+        <mat-icon class="icon" mat-card-avatar>
+            <span class="delete"> cruelty_free </span>
+        </mat-icon>
+    </div>
+    <div class="col-12 mt-4 d-flex justify-content-center">
+        <span> Search history is clear. </span>
+    </div>
+</div>
