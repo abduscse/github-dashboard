@@ -1,3 +1,4 @@
+// check if the values is empty.
 export function isEmpty(value: any): boolean {
     if (value instanceof Array) {
         return value.length === 0;
@@ -5,6 +6,7 @@ export function isEmpty(value: any): boolean {
     return value === null || value === undefined || value === '';
 }
 
+// export an object to json file
 export function exportToJsonFile(json: Object, filename = 'data.json') {
     const dataStr = JSON.stringify(json);
     const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);

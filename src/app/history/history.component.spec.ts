@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { MatIconModule } from '@angular/material/icon';
 import { HistoryComponent } from './history.component';
 
 describe('HistoryComponent', () => {
@@ -8,10 +8,11 @@ describe('HistoryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HistoryComponent ]
-    })
-    .compileComponents();
-
+      declarations: [HistoryComponent],
+      imports: [
+        MatIconModule
+      ]
+    }).compileComponents();
     fixture = TestBed.createComponent(HistoryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AppService } from '../app.service';
@@ -11,7 +11,7 @@ import { isEmpty } from '../shared/utils';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent {
   constructor(private appService: AppService, private snackBar: MatSnackBar, private router: Router,
     private localStorage: LocalStorageService) {
     const state = this.router.getCurrentNavigation()?.extras.state as { keywords: string };
@@ -26,17 +26,24 @@ export class SearchComponent implements OnInit {
   users: Array<any> = [];
   userCount: number = 0;
   searchNotPerformed = true;
+  /* 
+    When user click on card, open profile in new tab.
+  */
   onCardClick(user: any) {
     window.open(user.html_url);
   }
-  ngOnInit(): void {
-  }
+  /*
+    When Searching users for the first time
+  */
   onNewSearch() {
     this.page = 1;
     this.users = [];
     this.searchNotPerformed = true;
     this.search(true);
   }
+  /*
+  Search for users with entered text
+  */
   search(newSearch = false) {
     if (!isEmpty(this.enteredText)) {
       this.appService.getUsers(this.enteredText, this.page, this.per_page).subscribe((res) => {
@@ -45,6 +52,7 @@ export class SearchComponent implements OnInit {
         this.users.push(...res.items);
         if (newSearch) {
 
+          // adding search history item local storage with Success status
           this.localStorage.addSearch({
             keywords: this.enteredText,
             userCount: this.userCount,
@@ -58,6 +66,7 @@ export class SearchComponent implements OnInit {
           data: 'User Search Failed!'
         });
         if (newSearch) {
+          // adding search history item local storage with Failed status
           this.localStorage.addSearch({
             keywords: this.enteredText,
             userCount: null,
@@ -71,6 +80,11 @@ export class SearchComponent implements OnInit {
       });
     }
   }
+  /*
+  1. detect the end of page while scrolling
+  2. check if more users have to loaded
+  3. if yes, update the page number and search again
+  */
   onScroll(event: any) {
     if (event.target.offsetHeight + event.target.scrollTop >= event.target.scrollHeight) {
       if (this.users.length < this.userCount) {

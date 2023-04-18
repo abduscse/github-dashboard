@@ -17,11 +17,12 @@ import { CONSTANTS } from './constants';
 })
 export class APIInterceptor implements HttpInterceptor {
   private requests: Array<HttpRequest<any>> = [];
-  constructor(private appService: AppService, private snackBar: MatSnackBar) {}
+  constructor(private appService: AppService, private snackBar: MatSnackBar) { }
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+    // Clone the request and set request url and headers.
     const request = req.clone({
       url: `${environment.baseUrl}/${req.url}`,
       setHeaders: {
@@ -54,6 +55,7 @@ export class APIInterceptor implements HttpInterceptor {
       };
     });
   }
+  // Remove request when response is received
   private removeRequest(request: HttpRequest<any>): void {
     const index = this.requests.indexOf(request);
     if (index >= 0) {

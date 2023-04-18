@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
@@ -7,7 +7,7 @@ import { filter } from 'rxjs/operators';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
   currentPage: string | null = null;
   navIcon = 'manage_history';
   navTitle = 'Search History';
@@ -18,9 +18,7 @@ export class DashboardComponent implements OnInit {
       this.navIcon = this.currentPage === 'search' ? 'manage_history' : 'search';
     });
   }
-
-  ngOnInit(): void {
-  }
+  // to navigate back and forth between search screen and history screen.
   navigate() {
     if (this.currentPage === 'search') {
       this.navIcon = 'search';

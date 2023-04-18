@@ -10,6 +10,7 @@ export class AppService {
   isLoading = new BehaviorSubject(false);
   constructor(private http: HttpClient) { }
 
+  // Search users with entered text in github
   getUsers(enteredText: string, page: number, per_page: number): Observable<any> {
     return this.http.get(
       'search/users?q=' + enteredText +
