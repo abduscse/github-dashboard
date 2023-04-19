@@ -30,14 +30,14 @@ export class LocalStorageService {
   }
   // set key value pair to local storage
   set(key: any, value: any) {
-    const stringKey = typeof key === 'string' ? key : key.toString(key);
+    const stringKey = typeof key === 'string' ? key : JSON.stringify(key);
     if (value !== undefined && value !== null) {
       return localStorage.setItem(stringKey, JSON.stringify(value));
     }
   }
   // clear one item from local storage
   clearItem(key: any) {
-    const stringKey = typeof key === 'string' ? key : key.stringify(key);
+    const stringKey = typeof key === 'string' ? key : JSON.stringify(key);
     localStorage.removeItem(stringKey);
   }
   // clear all local storage
